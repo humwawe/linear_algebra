@@ -1,7 +1,28 @@
+import math
+
+EPSILON = 1e-8
+
+
 class Vector:
 
     def __init__(self, lst):
         self._values = list(lst)
+
+    @classmethod
+    def zero(cls, dim):
+        return cls([0] * dim)
+
+    def norm(self):
+        return math.sqrt(sum(e ** 2 for e in self))
+
+    def normalize(self):
+        if self.norm() < EPSILON:
+            raise ZeroDivisionError("Normalize error! norm is zero.")
+        return Vector(self._values) / self.norm()
+
+    def dot(self, another):
+        assert len(self) == len(another), "Error in dot product. Length of vectors must be same."
+        return sum(a * b for a, b in zip(self, another))
 
     def __add__(self, another):
         assert len(self) == len(another), "Error in adding. Length of vectors must be same."
@@ -16,6 +37,9 @@ class Vector:
 
     def __rmul__(self, k):
         return self * k
+
+    def __truediv__(self, k):
+        return (1 / k) * self
 
     def __pos__(self):
         return 1 * self
