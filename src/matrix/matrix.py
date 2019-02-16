@@ -10,6 +10,13 @@ class Matrix:
     def zero(cls, r, c):
         return cls([[0] * c for _ in range(r)])
 
+    @classmethod
+    def identity(cls, n):
+        m = [[0] * n for _ in range(n)]
+        for i in range(n):
+            m[i][i] = 1
+        return cls(m)
+
     def __add__(self, another):
         assert self.shape() == another.shape(), "Error in adding. Shape of matrix must be same."
         return Matrix(
