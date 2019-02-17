@@ -17,31 +17,6 @@ class Matrix:
             m[i][i] = 1
         return cls(m)
 
-    def __add__(self, another):
-        assert self.shape() == another.shape(), "Error in adding. Shape of matrix must be same."
-        return Matrix(
-            [[a + b for a, b in zip(self.row_vector(i), another.row_vector(i))] for i in range(self.row_num())])
-
-    def __sub__(self, another):
-        assert self.shape() == another.shape(), "Error in subtracting. Shape of matrix must be same."
-        return Matrix(
-            [[a - b for a, b in zip(self.row_vector(i), another.row_vector(i))] for i in range(self.row_num())])
-
-    def __mul__(self, k):
-        return Matrix([[e * k for e in self.row_vector(i)] for i in range(self.row_num())])
-
-    def __rmul__(self, k):
-        return self * k
-
-    def __truediv__(self, k):
-        return (1 / k) * self
-
-    def __pos__(self):
-        return 1 * self
-
-    def __neg__(self):
-        return -1 * self
-
     def dot(self, another):
         if isinstance(another, Vector):
             assert self.col_num() == len(another), "Error in Matrix-Vector Multiplication."
@@ -73,6 +48,31 @@ class Matrix:
 
     def shape(self):
         return len(self._values), len(self._values[0])
+
+    def __add__(self, another):
+        assert self.shape() == another.shape(), "Error in adding. Shape of matrix must be same."
+        return Matrix(
+            [[a + b for a, b in zip(self.row_vector(i), another.row_vector(i))] for i in range(self.row_num())])
+
+    def __sub__(self, another):
+        assert self.shape() == another.shape(), "Error in subtracting. Shape of matrix must be same."
+        return Matrix(
+            [[a - b for a, b in zip(self.row_vector(i), another.row_vector(i))] for i in range(self.row_num())])
+
+    def __mul__(self, k):
+        return Matrix([[e * k for e in self.row_vector(i)] for i in range(self.row_num())])
+
+    def __rmul__(self, k):
+        return self * k
+
+    def __truediv__(self, k):
+        return (1 / k) * self
+
+    def __pos__(self):
+        return 1 * self
+
+    def __neg__(self):
+        return -1 * self
 
     def __getitem__(self, pos):
         r, c = pos
