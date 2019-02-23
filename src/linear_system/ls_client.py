@@ -1,4 +1,4 @@
-from src.linear_system.LinearSystem import LinearSystem, inv
+from src.linear_system.LinearSystem import LinearSystem, inv, rank
 from src.matrix.matrix import Matrix
 from src.vectors.vector import Vector
 
@@ -70,3 +70,9 @@ if __name__ == "__main__":
     print(invA)
     print(A.dot(invA))
     print(invA.dot(A))
+    print()
+
+    print(rank(A6))
+    print(rank(A7))
+    print(rank(A8))
+
